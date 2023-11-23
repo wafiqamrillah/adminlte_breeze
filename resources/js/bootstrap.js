@@ -10,6 +10,12 @@ window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
+ * We'll load the jQuery library because we need it for AdminLTE layout.
+ */
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
+/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
