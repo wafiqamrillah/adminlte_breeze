@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
@@ -11,6 +12,9 @@ new class extends Component
     public string $password = '';
     public string $password_confirmation = '';
 
+    /**
+     * Update the password for the currently authenticated user.
+     */
     public function updatePassword(): void
     {
         try {
@@ -24,7 +28,7 @@ new class extends Component
             throw $e;
         }
 
-        auth()->user()->update([
+        Auth::user()->update([
             'password' => Hash::make($validated['password']),
         ]);
 
@@ -67,7 +71,7 @@ new class extends Component
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
-            <x-action-message class="mr-3" on="password-updated">
+            <x-action-message class="me-3" on="password-updated">
                 {{ __('Saved.') }}
             </x-action-message>
         </div>
