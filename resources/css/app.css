@@ -1,3 +1,15 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+/* Variables */
+/* @import 'variables'; */
+
+/* Admin-LTE */
+@import '/node_modules/admin-lte/dist/css/adminlte.min.css';
+@import '/node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css';
+@import '/node_modules/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css';
+@import '/node_modules/admin-lte/plugins/select2/css/select2.min.css';
+@import '/node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
+@import '/node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css';
+@import '/node_modules/admin-lte/plugins/sweetalert2/sweetalert2.min.css';
