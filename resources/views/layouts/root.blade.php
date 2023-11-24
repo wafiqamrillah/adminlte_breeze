@@ -1,3 +1,5 @@
+@props(['class' => null])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -15,7 +17,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
-    <body class="font-sans antialiased">
+    <body {{ $attributes->merge(['class' => 'font-sans antialiased' . ($class ? ' '.$class : null)]) }}>
         {{ $slot }}
     </body>
 </html>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.root')] class extends Component
+new #[Layout('layouts.root', ['class' => 'hold-transition login-page'])] class extends Component
 {
     public LoginForm $form;
 
@@ -28,7 +28,7 @@ new #[Layout('layouts.root')] class extends Component
     }
 }; ?>
 
-<div class="hold-transition login-page">
+<div>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
