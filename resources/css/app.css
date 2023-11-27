@@ -13,3 +13,6 @@
 @import '/node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
 @import '/node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css';
 @import '/node_modules/admin-lte/plugins/sweetalert2/sweetalert2.min.css';
+
+/* Custom */
+[x-cloak] { display: none !important; }
