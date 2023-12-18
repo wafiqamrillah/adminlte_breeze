@@ -37,7 +37,8 @@ new class extends Component
         <!-- Profile Dropdown Menu -->
         <li x-data="{ name: '{{ auth()->user()->name }}', open: false }"
             x-on:profile-updated.window="name = $event.detail.name"
-            class="nav-item dropdown user-menu">
+            class="nav-item dropdown user-menu"
+            x-cloak>
             <a
                 x-on:click="open = !open"
                 href="javascript:void(0);"

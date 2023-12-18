@@ -1,16 +1,24 @@
 @props(['breadcrumbs' => null])
 <x-root-layout
     x-ref="body"
-    x-data="window.nav.make()"
-    x-bind:class="{ 'sidebar-collapse' : collapsed }"
+    x-data="{
+        collapsed : $persist(false),
+        resize() {
+            this.collapsed = window.innerWidth <= 1024;
+        },
+        toggle() {
+            this.collapsed = !this.collapsed;
+        },
+        clickAway() {
+            if (window.innerWidth <= 1024) {
+                this.collapsed = true;
+            }
+        }
+    }"
+    x-bind:class="{ 'sidebar-collapse sidebar-open' : collapsed }"
     x-on:resize.window="resize()"
-    class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+    class="sidebar-mini layout-fixed layout-navbar-fixed">
     <div class="wrapper">
-        {{-- <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-        </div> --}}
-
         <!-- Navbar -->
         <livewire:layout.navigation />
         
