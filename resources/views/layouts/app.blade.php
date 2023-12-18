@@ -8,14 +8,20 @@
         },
         toggle() {
             this.collapsed = !this.collapsed;
+            if (!this.collapsed) {
+                this.$refs.body.classList.remove('sidebar-open');
+            } else {
+                this.$refs.body.classList.add('sidebar-open');
+            }
         },
         clickAway() {
             if (window.innerWidth <= 1024) {
                 this.collapsed = true;
+                this.$refs.body.classList.remove('sidebar-open');
             }
         }
     }"
-    x-bind:class="{ 'sidebar-collapse sidebar-open' : collapsed }"
+    x-bind:class="{ 'sidebar-collapse' : collapsed }"
     x-on:resize.window="resize()"
     class="sidebar-mini layout-fixed layout-navbar-fixed">
     <div class="wrapper">
