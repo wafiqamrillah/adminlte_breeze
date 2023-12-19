@@ -15,4 +15,4 @@
 @import '/node_modules/admin-lte/plugins/sweetalert2/sweetalert2.min.css';
 
 /* Custom */
-[x-cloak] { display: none !important; }
+[x-cloak] { display: none !important; visibility: hidden; overflow: hidden; }

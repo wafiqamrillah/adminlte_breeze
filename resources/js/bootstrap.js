@@ -10,10 +10,26 @@ window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
+ * We'll load the Livewire ESM module.
+ */
+import { Alpine, Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm.js';
+window.Livewire = Livewire;
+window.Alpine = Alpine;
+
+window.Livewire.start();
+
+/**
  * We'll load the jQuery library because we need it for AdminLTE layout.
+ * Then, set Alpine listener manipulation to jQuery.
  */
 import $ from 'jquery';
 window.$ = window.jQuery = $;
+document.addEventListener('alpine:init', () => {
+    Alpine.setListenerManipulators(
+        (target, eventName, handler, options, modifiers) => { jQuery(target).on(eventName, handler); },
+        (target, eventName, handler, options) => { jQuery(target).off(eventName, handler); }
+    )
+});
 
 /**
  * We'll load the AdminLTE layout.
