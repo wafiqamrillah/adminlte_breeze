@@ -19,7 +19,7 @@ new class extends Component
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link" wire:navigate>
+                    <a href="{{ route('dashboard') }}" class="nav-link {{ url()->current() === route('dashboard') ? 'active' : '' }}" wire:navigate>
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             {{ __('Dashboard') }}
