@@ -69,8 +69,9 @@ new class extends Component
                 wire:model="password"
                 id="password"
                 name="password"
-                class="form-control @error('current_password') is-invalid @enderror"
-                required />
+                class="form-control @error('password') is-invalid @enderror"
+                required
+            />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
