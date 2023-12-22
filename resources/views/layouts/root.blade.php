@@ -20,6 +20,7 @@
     <body {{ $attributes->merge(['class' => 'font-sans antialiased' . ($class ? ' '.$class : null)]) }}>
         {{ $slot }}
 
+        <!-- Scripts -->
         @livewireScriptConfig
     </body>
 </html>

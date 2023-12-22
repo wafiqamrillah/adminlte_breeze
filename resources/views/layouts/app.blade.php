@@ -67,5 +67,8 @@
 
         <!-- Sidebar Overlay -->
         <div id="sidebar-overlay" x-on:click="toggle()"></div>
+
+        <!-- Wire Elements Modal -->
+        @livewire('wire-elements-modal')
     </div>
 </x-root-layout>
