@@ -11,7 +11,7 @@ class ClearCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'log:clear';
+    protected $signature = 'log:clear {log_file_name?}';
 
     /**
      * The console command description.
@@ -25,7 +25,31 @@ class ClearCommand extends Command
      */
     public function handle()
     {
-        exec('echo "" > ' . storage_path('logs/laravel.log'));
+        $logFileName = $this->argument('log_file_name');
+        $logs = [];
+        
+        if ($logFileName) {
+            // Check if the log file name has a .log extension
+            if (substr($logFileName, -4) !== '.log') $logFileName .= '.log';
+
+            // Check if the log file exists
+            if (!file_exists(storage_path('logs/' . $logFileName))) {
+                $this->error('The log file does not exist!');
+
+                return;
+            }
+
+            $logs[] = storage_path('logs/' . $logFileName);
+        } else {
+            // Get all the log files with the .log extension in the storage/logs directory
+            $logs = glob(storage_path('logs/*.log'));
+        }
+        
+        // Clear all the log files using exec()
+        foreach ($logs as $log) {
+            $this->line('Clearing log: ' . $log);
+            exec('echo "" > ' . $log);
+        }
 
         $this->info('Logs have been cleared!');
     }
