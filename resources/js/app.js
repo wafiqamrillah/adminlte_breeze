@@ -1,3 +1,4 @@
+import './modal';
 import './bootstrap';
 
 import.meta.glob([
