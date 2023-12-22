@@ -22,6 +22,7 @@
         show: {{ $show ? 'true' : 'false' }},
         backdrop: null,
         name: '{{ $name  }}',
+        preventClose: false,
         focusables() {
             // All focusable element types...
             let selector = 'a, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
@@ -53,6 +54,11 @@
                     setTimeout(() => this.backdrop.remove(), 150);
                 }
             }
+        },
+        closeModalOnClickAway() {
+            if (this.preventClose) return;
+
+            toggleModal(false);
         }
     }"
     x-init="() => {
@@ -70,12 +76,20 @@
         'animate__animated animate__fadeInDown animate__faster': show,
         'animate__animated animate__fadeOutUp': !show
     }"
-    style="display: block;"
+    x-bind:style="{
+        display : show ? 'block' : 'none'
+    }"
     aria-hidden="true"
     role="dialog"
     {{ $attributes }}
 >
-    <div class="modal-dialog {{ $modalSize }}">
+    <div
+        x-show="show"
+        class="modal-dialog {{ $modalSize }}"
+        x-on:click.outside="closeModalOnClickAway()"
+        x-trap.noscroll.inert="show"
+        aria-modal="true"
+    >
         <div class="modal-content">
             <div class="modal-header">
                 @isset($title)
