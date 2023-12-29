@@ -58,7 +58,7 @@
         closeModalOnClickAway() {
             if (this.preventClose) return;
 
-            toggleModal(false);
+            $dispatch('close');
         }
     }"
     x-init="() => {
@@ -67,6 +67,7 @@
     }"
     x-on:open-modal.window="$event.detail == '{{ $name }}' ? show = true : null;"
     x-on:close.stop="show = false"
+    x-on:close.window="show = false"
     x-on:keydown.escape.window="show = false"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
