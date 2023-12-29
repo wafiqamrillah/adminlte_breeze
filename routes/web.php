@@ -17,12 +17,19 @@ Route::get('/', function () {
     return redirect('dashboard');
 });
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware('auth')->group(function (){
+    // Dashboard
+    Route::view('dashboard', 'dashboard')->name('dashboard')->middleware('verified');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+    // Profile
+    Route::view('profile', 'profile')->name('profile');
+
+    // Settings
+    Route::prefix('settings')->name('settings')->group(function (){
+        Route::view(null, 'settings')->name('.index');
+        Route::view('users', 'livewire.settings.user-management')->name('.users');
+        Route::view('menus', 'livewire.settings.menu-management')->name('.menus');
+    });
+});
 
 require __DIR__.'/auth.php';

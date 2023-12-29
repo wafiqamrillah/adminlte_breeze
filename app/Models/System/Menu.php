@@ -3,7 +3,7 @@
 namespace App\Models\System;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{ Model, Builder };
 
 class Menu extends Model
 {
@@ -40,10 +40,16 @@ class Menu extends Model
         'updated_at',
     ];
 
+    
     /**
-     * Including relationships to be automatically loaded.
+     * The "booted" method of the model.
      */
-    protected $with = ['children'];
+    protected static function booted(): void
+    {
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('order', 'asc');
+        });
+    }
 
     /**
      * Get the parent menu.
@@ -62,9 +68,29 @@ class Menu extends Model
     }
 
     /**
+     * Scope a query to include children menus.
+     */
+    public function scopeWithChildren(Builder $query) : Builder
+    {
+        return $query->with(['children' => function ($query) {
+            $query->withChildren();
+        }]);
+    }
+
+    /**
+     * Scope a query to include active children menus.
+     */
+    public function scopeWithActiveChildren(Builder $query) : Builder
+    {
+        return $query->with(['children' => function ($query) {
+            $query->active()->withActiveChildren();
+        }]);
+    }
+
+    /**
      * Scope a query to only include active menus.
      */
-    public function scopeActive( \Illuminate\Database\Eloquent\Builder $query) : \Illuminate\Database\Eloquent\Builder
+    public function scopeActive(Builder $query) : Builder
     {
         return $query->where('is_active', true);
     }

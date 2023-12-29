@@ -59,7 +59,19 @@ class MenuSeeder extends Seeder
                 'icon_class' => 'fas fa-tachometer-alt',
                 'is_active' => true,
                 'use_translation' => true
-            ])
+            ]),
+            // Settings
+            collect([
+                'name' => 'Settings',
+                'parent_id' => null,
+                'type' => 'menu',
+                'order' => 2,
+                'link' => 'settings',
+                'link_type' => 'route',
+                'icon_class' => 'fas fa-cogs',
+                'is_active' => true,
+                'use_translation' => true
+            ]),
         ]);
 
         // Insert menus, but make sure if the menu already exists, it will be updated instead of duplicated
