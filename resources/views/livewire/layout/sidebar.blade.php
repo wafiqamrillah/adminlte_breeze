@@ -1,11 +1,18 @@
 <?php
 
 use Livewire\Volt\Component;
+use function Livewire\Volt\{computed, protect};
 
-new class extends Component
-{
-
-} ?>
+$menus = computed(function() {
+    return \App\Models\System\Menu::query()
+        ->withActiveChildren()
+        ->whereNull('parent_id')
+        ->whereIn('type', ['menu', 'header'])
+        ->active()
+        ->get()
+        ->toArray();
+});
+?>
 
 <aside x-cloak class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('dashboard') }}" class="brand-link" wire:navigate>
@@ -15,17 +22,12 @@ new class extends Component
         </span>
     </a>
     
-    <div class="sidebar">
+    <div x-on:menu-updated.window="$wire.$refresh()" class="sidebar">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link {{ url()->current() === route('dashboard') ? 'active' : '' }}" wire:navigate>
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            {{ __('Dashboard') }}
-                        </p>
-                    </a>
-                </li>
+                @foreach ($this->menus as $menu)
+                    <x-layouts.menu.sidebar-menu :menu="$menu" />
+                @endforeach
             </ul>
         </nav>
     </div>
